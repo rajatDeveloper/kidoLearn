@@ -13,7 +13,6 @@ class SelectTabScreen extends StatefulWidget {
   State<SelectTabScreen> createState() => _SelectTabScreenState();
 }
 
-
 class _SelectTabScreenState extends State<SelectTabScreen> {
   final TextEditingController numTestController = TextEditingController();
 
@@ -98,13 +97,20 @@ class _SelectTabScreenState extends State<SelectTabScreen> {
             width: getDeviceWidth(context),
             color: AppColors.primary,
           ),
-          const Padding(
-            padding: EdgeInsets.only(top: 10, bottom: 10, left: 0),
-            child: Text("Select the Operator to begin the game !",
-                style: TextStyle(
-                    color: AppColors.light,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold)),
+          Container(
+            alignment: Alignment.center,
+            width: getDeviceWidth(context),
+            decoration: const BoxDecoration(
+              color: AppColors.primaryAccent,
+            ),
+            child: const Padding(
+              padding: EdgeInsets.only(top: 10, bottom: 10, left: 0),
+              child: Text("Select the Operator to begin the game !",
+                  style: TextStyle(
+                      color: AppColors.light,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold)),
+            ),
           ),
           Container(
             height: 1,
