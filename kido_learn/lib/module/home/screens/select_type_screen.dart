@@ -1,9 +1,11 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:kido_learn/module/Test/screens/test_screen.dart';
+import 'package:kido_learn/module/home/widgets/gridCard.dart';
 import 'package:kido_learn/module/home/widgets/tapOn.dart';
 import 'package:kido_learn/utils/appColor.dart';
 import 'package:kido_learn/utils/helping_functions.dart';
+import 'package:kido_learn/utils/music_controller.dart';
 
 class SelectTabScreen extends StatefulWidget {
   static const String routeName = "/select-tab-screen";
@@ -71,11 +73,100 @@ class _SelectTabScreenState extends State<SelectTabScreen> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    MusicController.loadAndPlayMusic();
+  }
+
+  bool isGridView = true;
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: Container(
+            height: 55,
+            width: getDeviceWidth(context),
+            decoration: BoxDecoration(
+              color: AppColors.darkGrey,
+              border: Border.all(color: AppColors.primary, width: 0.5),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Grid View",
+                    style: TextStyle(color: AppColors.lightGrey),
+                  ),
+                  Switch(
+                    value: isGridView,
+                    onChanged: (value) {
+                      setState(() {
+                        isGridView = value;
+                      });
+                    },
+                    activeTrackColor: AppColors.primary,
+                    activeColor: AppColors.lightGrey,
+                  ),
+                ],
+              ),
+            )),
+      ),
       resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.dark,
+      drawer: Drawer(
+        backgroundColor: AppColors.darkGrey,
+        child: ListView(
+          children: [
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: AppColors.primaryAccent,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    child: Text("Kido Learn",
+                        style: TextStyle(
+                            color: AppColors.lightGrey,
+                            fontSize: getFontSize(35, getDeviceWidth(context)),
+                            fontWeight: FontWeight.bold)),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    child: Text("+ - × ÷",
+                        style: TextStyle(
+                            color: AppColors.darkGrey,
+                            fontSize: getFontSize(50, getDeviceWidth(context)),
+                            fontWeight: FontWeight.bold)),
+                  ),
+                ],
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.scoreboard, color: AppColors.primary),
+              title: Text(
+                'My Score',
+                style: TextStyle(color: AppColors.primary),
+              ),
+              onTap: () {
+                setState(() {});
+              },
+            ),
+          ],
+        ),
+      ),
       appBar: AppBar(
+        iconTheme: IconThemeData(color: AppColors.primary),
         backgroundColor: AppColors.dark.withOpacity(0.7),
         title: const Text(
           'Kido Learn',
@@ -83,10 +174,16 @@ class _SelectTabScreenState extends State<SelectTabScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
-            icon: true
-                ? const Icon(Icons.volume_off_sharp, color: AppColors.primary)
-                : const Icon(Icons.volume_up_sharp, color: AppColors.primary),
+            onPressed: () {
+              MusicController.isPlaying
+                  ? MusicController.pauseMusic()
+                  : MusicController.playMusic();
+
+              setState(() {});
+            },
+            icon: MusicController.isPlaying
+                ? const Icon(Icons.volume_up_sharp, color: AppColors.primary)
+                : const Icon(Icons.volume_off_sharp, color: AppColors.primary),
           ),
         ],
       ),
@@ -121,30 +218,74 @@ class _SelectTabScreenState extends State<SelectTabScreen> {
             height: 10,
           ),
           // addition subtraction multiplication division
-          TapOn(
-              operator: "+",
-              text: "Addition",
-              onTap: () {
-                getDialogeBox("+");
-              }),
-          TapOn(
-              operator: "-",
-              text: "Subtraction",
-              onTap: () {
-                getDialogeBox("-");
-              }),
-          TapOn(
-              operator: "×",
-              text: "Multiplication",
-              onTap: () {
-                getDialogeBox("×");
-              }),
-          TapOn(
-              operator: "÷",
-              text: "Division",
-              onTap: () {
-                getDialogeBox("÷");
-              }),
+          !isGridView
+              ? Column(
+                  children: [
+                    TapOn(
+                        operator: "+",
+                        text: "Addition",
+                        onTap: () {
+                          getDialogeBox("+");
+                        }),
+                    TapOn(
+                        operator: "-",
+                        text: "Subtraction",
+                        onTap: () {
+                          getDialogeBox("-");
+                        }),
+                    TapOn(
+                        operator: "×",
+                        text: "Multiplication",
+                        onTap: () {
+                          getDialogeBox("×");
+                        }),
+                    TapOn(
+                        operator: "÷",
+                        text: "Division",
+                        onTap: () {
+                          getDialogeBox("÷");
+                        }),
+                  ],
+                )
+              : Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    height: getDeviceHeight(context) * 0.7,
+                    child: GridView(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio: 1.5,
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10,
+                        ),
+                        children: [
+                          GridCard(
+                              operator: "+",
+                              text: "Addition",
+                              onTap: () {
+                                getDialogeBox("+");
+                              }),
+                          GridCard(
+                              operator: "-",
+                              text: "Subtraction",
+                              onTap: () {
+                                getDialogeBox("-");
+                              }),
+                          GridCard(
+                              operator: "×",
+                              text: "Multiplication",
+                              onTap: () {
+                                getDialogeBox("×");
+                              }),
+                          GridCard(
+                              operator: "÷",
+                              text: "Division",
+                              onTap: () {
+                                getDialogeBox("÷");
+                              }),
+                        ]),
+                  ),
+                ),
         ],
       ),
     );

@@ -8,10 +8,12 @@ class TapOn extends StatefulWidget {
   final Function() onTap;
 
   const TapOn(
-      {super.key,
+      {
+        super.key,
       required this.operator,
       required this.text,
-      required this.onTap});
+      required this.onTap
+      });
 
   @override
   State<TapOn> createState() => _TapOnState();

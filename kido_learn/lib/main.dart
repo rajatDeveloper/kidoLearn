@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kido_learn/module/splash/screen/splash_screen.dart';
+import 'package:kido_learn/utils/appColor.dart';
 import 'package:kido_learn/utils/routes/routers.dart';
 
 void main() {
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Kido Learn',
       theme: ThemeData(
+    
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
       initialRoute: SplashScreen.routeName,
@@ -22,4 +24,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
