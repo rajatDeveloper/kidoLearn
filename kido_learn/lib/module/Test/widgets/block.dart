@@ -120,8 +120,16 @@ class _BlockDataState extends State<BlockData> {
                     color: AppColors.darkGrey,
                   ),
                   child: TextField(
-                    onSubmitted: (val) {
+                    onSubmitted: (val) async {
                       if (result == int.parse(val)) {
+                        var data = await getSavedDataByKey(key: "score");
+                        if (data == "") {
+                          data = "0";
+                        }
+
+                        int score = int.parse(data) + 1;
+                        setDataToLocal(key: "score", value: score.toString());
+
                         showSnackBar(
                             "Buddy Your Answer is right cool !", context);
                       } else {

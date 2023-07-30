@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 double getFontSize(double size, double screenWidth) {
   return size * screenWidth / 414;
@@ -25,4 +26,22 @@ Future<String> getSavedDataByKey({required String key}) async {
 
   String? data = prefs.getString(key);
   return data ?? "";
+}
+
+void sndWhatsAppMsg(
+    {required String number,
+    required String msg,
+    required BuildContext context}) async {
+  var trimNumber = number!.replaceAll(" ", "");
+
+  String url = "https://wa.me/$trimNumber?text=$msg";
+  try {
+    if (await canLaunchUrl(Uri.parse(url))) {
+      launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
+    } else {
+      showSnackBar("Whatsapp not installed !", context);
+    }
+  } catch (e) {
+    showSnackBar("Whatsapp not installed !", context);
+  }
 }

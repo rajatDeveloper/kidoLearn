@@ -1,8 +1,10 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:kido_learn/module/Test/screens/test_screen.dart';
+import 'package:kido_learn/module/developer_screen.dart';
 import 'package:kido_learn/module/home/widgets/gridCard.dart';
 import 'package:kido_learn/module/home/widgets/tapOn.dart';
+import 'package:kido_learn/module/myScore/screen/my_score.dart';
 import 'package:kido_learn/utils/appColor.dart';
 import 'package:kido_learn/utils/helping_functions.dart';
 import 'package:kido_learn/utils/music_controller.dart';
@@ -156,10 +158,28 @@ class _SelectTabScreenState extends State<SelectTabScreen> {
               leading: Icon(Icons.scoreboard, color: AppColors.primary),
               title: Text(
                 'My Score',
-                style: TextStyle(color: AppColors.primary),
+                style: TextStyle(
+                    color: AppColors.primary,
+                    fontSize: getFontSize(18, getDeviceWidth(context))),
               ),
               onTap: () {
-                setState(() {});
+                setState(() {
+                  Navigator.pushNamed(context, MyScoreScreen.routeName);
+                });
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.developer_board, color: AppColors.primary),
+              title: Text(
+                'About Developer',
+                style: TextStyle(
+                    color: AppColors.primary,
+                    fontSize: getFontSize(18, getDeviceWidth(context))),
+              ),
+              onTap: () {
+                setState(() {
+                  Navigator.pushNamed(context, DeveloperScreen.routeName);
+                });
               },
             ),
           ],

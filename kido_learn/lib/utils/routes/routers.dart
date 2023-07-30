@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kido_learn/module/Test/screens/test_screen.dart';
+import 'package:kido_learn/module/developer_screen.dart';
 import 'package:kido_learn/module/home/screens/select_type_screen.dart';
+import 'package:kido_learn/module/myScore/screen/my_score.dart';
 import 'package:kido_learn/module/slider/screen/slider_screen.dart';
 import 'package:kido_learn/module/splash/screen/splash_screen.dart';
 
@@ -19,6 +21,8 @@ Map<String, Widget Function(BuildContext)> getAppRoutes() {
         num: num,
       );
     },
+    MyScoreScreen.routeName: (context) => const MyScoreScreen(),
+    DeveloperScreen.routeName: (context) => const DeveloperScreen(),
   };
 
   return appRoutes;
