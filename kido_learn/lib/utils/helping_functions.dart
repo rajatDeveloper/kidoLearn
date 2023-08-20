@@ -32,7 +32,7 @@ void sndWhatsAppMsg(
     {required String number,
     required String msg,
     required BuildContext context}) async {
-  var trimNumber = number!.replaceAll(" ", "");
+  var trimNumber = number.replaceAll(" ", "");
 
   String url = "https://wa.me/$trimNumber?text=$msg";
   try {

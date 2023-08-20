@@ -13,7 +13,7 @@ class MyScoreScreen extends StatefulWidget {
 }
 
 class _MyScoreScreenState extends State<MyScoreScreen> {
-  String score = "0";
+  String? score;
   @override
   void initState() {
     // TODO: implement initState
@@ -22,7 +22,7 @@ class _MyScoreScreenState extends State<MyScoreScreen> {
   }
 
   void getScore() async {
-    var data = await getSavedDataByKey(key: "score");
+    var data = await getSavedDataByKey(key: "data");
     if (data == "") {
       data = "0";
     }
@@ -45,72 +45,78 @@ class _MyScoreScreenState extends State<MyScoreScreen> {
           style: TextStyle(color: AppColors.primary),
         ),
       ),
-      body: Center(
-        child: Column(
-          children: [
-            SlideInDown(child: Image.asset(kidImage)),
-            SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Column(
-                  children: [
-                    SlideInUp(
-                      child: Text(
-                        'Your Total Score',
-                        style: TextStyle(
-                          color: AppColors.primary,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    // SizedBox(
-                    //   height: 20,
-                    // ),
-                    SlideInUp(
-                      child: Text(
-                        score,
-                        style: TextStyle(
-                          color: AppColors.primary,
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                // Column(
-                //   children: [
-                //     SlideInUp(
-                //       child: Text(
-                //         'Your Highest Score',
-                //         style: TextStyle(
-                //           color: AppColors.primary,
-                //           fontSize: 20,
-                //           fontWeight: FontWeight.bold,
-                //         ),
-                //       ),
-                //     ),
-                //     SlideInUp(
-                //       child: Text(
-                //         '0',
-                //         style: TextStyle(
-                //           color: AppColors.primary,
-                //           fontSize: 30,
-                //           fontWeight: FontWeight.bold,
-                //         ),
-                //       ),
-                //     ),
-                //   ],
-                // )
-              ],
+      body: score == null
+          ? const Center(
+              child: CircularProgressIndicator(
+                color: AppColors.primary,
+              ),
             )
-          ],
-        ),
-      ),
+          : Center(
+              child: Column(
+                children: [
+                  SlideInDown(child: Image.asset(kidImage)),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Column(
+                        children: [
+                          SlideInUp(
+                            child: Text(
+                              'Your Total Score',
+                              style: TextStyle(
+                                color: AppColors.primary,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          // SizedBox(
+                          //   height: 20,
+                          // ),
+                          SlideInUp(
+                            child: Text(
+                              score!,
+                              style: TextStyle(
+                                color: AppColors.primary,
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      // Column(
+                      //   children: [
+                      //     SlideInUp(
+                      //       child: Text(
+                      //         'Your Highest Score',
+                      //         style: TextStyle(
+                      //           color: AppColors.primary,
+                      //           fontSize: 20,
+                      //           fontWeight: FontWeight.bold,
+                      //         ),
+                      //       ),
+                      //     ),
+                      //     SlideInUp(
+                      //       child: Text(
+                      //         '0',
+                      //         style: TextStyle(
+                      //           color: AppColors.primary,
+                      //           fontSize: 30,
+                      //           fontWeight: FontWeight.bold,
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ],
+                      // )
+                    ],
+                  )
+                ],
+              ),
+            ),
     );
   }
 }

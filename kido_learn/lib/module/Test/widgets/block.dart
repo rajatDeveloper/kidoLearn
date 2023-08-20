@@ -122,13 +122,17 @@ class _BlockDataState extends State<BlockData> {
                   child: TextField(
                     onSubmitted: (val) async {
                       if (result == int.parse(val)) {
-                        var data = await getSavedDataByKey(key: "score");
+                        var data = await getSavedDataByKey(key: "data");
+
                         if (data == "") {
                           data = "0";
                         }
-
+                        log("hi ");
+                        log("initial score" + data.toString());
                         int score = int.parse(data) + 1;
-                        setDataToLocal(key: "score", value: score.toString());
+                        log("final score" + score.toString());
+
+                        setDataToLocal(key: "data", value: score.toString());
 
                         showSnackBar(
                             "Buddy Your Answer is right cool !", context);
@@ -160,8 +164,20 @@ class _BlockDataState extends State<BlockData> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () {
+                  onTap: () async {
                     if (result == int.parse(controller.text)) {
+                      var data = await getSavedDataByKey(key: "data");
+
+                      if (data == "") {
+                        data = "0";
+                      }
+                      log("hi ");
+                      log("initial score" + data.toString());
+                      int score = int.parse(data) + 1;
+                      log("final score" + score.toString());
+
+                      setDataToLocal(key: "data", value: score.toString());
+
                       showSnackBar(
                           "Buddy Your Answer is right cool !", context);
                     } else {

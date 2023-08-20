@@ -1,11 +1,13 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:kido_learn/module/Test/screens/test_screen.dart';
 import 'package:kido_learn/module/developer_screen.dart';
 import 'package:kido_learn/module/home/widgets/gridCard.dart';
 import 'package:kido_learn/module/home/widgets/tapOn.dart';
 import 'package:kido_learn/module/myScore/screen/my_score.dart';
 import 'package:kido_learn/utils/appColor.dart';
+import 'package:kido_learn/utils/consts.dart';
 import 'package:kido_learn/utils/helping_functions.dart';
 import 'package:kido_learn/utils/music_controller.dart';
 
@@ -19,6 +21,9 @@ class SelectTabScreen extends StatefulWidget {
 
 class _SelectTabScreenState extends State<SelectTabScreen> {
   final TextEditingController numTestController = TextEditingController();
+
+  late BannerAd _bannerAd;
+  bool _isBannerAdReady = false;
 
   getDialogeBox(String op) {
     return showDialog(
@@ -76,15 +81,45 @@ class _SelectTabScreenState extends State<SelectTabScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    _initBannerAd();
     MusicController.loadAndPlayMusic();
+  }
+
+  _initBannerAd() {
+    _bannerAd = BannerAd(
+        size: AdSize.banner,
+        adUnitId: AdId,
+        listener: BannerAdListener(
+          onAdLoaded: (ad) {
+            setState(() {
+              _isBannerAdReady = true;
+            });
+          },
+          onAdFailedToLoad: (ad, error) {
+            ad.dispose();
+            setState(() {
+              _isBannerAdReady = false;
+            });
+          },
+        ),
+        request: AdRequest());
+
+    _bannerAd.load();
+    log("Banner Ad Loaded: ${_isBannerAdReady}");
   }
 
   bool isGridView = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: _isBannerAdReady
+          ? Container(
+              height: _bannerAd.size.height.toDouble(),
+              width: _bannerAd.size.width.toDouble(),
+              child: AdWidget(ad: _bannerAd),
+            )
+          : const SizedBox(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8),

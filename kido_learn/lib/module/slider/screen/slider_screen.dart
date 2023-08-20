@@ -17,7 +17,7 @@ class SliderScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.dark,
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           SizedBox(
             width: getDeviceWidth(context),
