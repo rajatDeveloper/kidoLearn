@@ -22,9 +22,6 @@ class SelectTabScreen extends StatefulWidget {
 class _SelectTabScreenState extends State<SelectTabScreen> {
   final TextEditingController numTestController = TextEditingController();
 
-  late BannerAd _bannerAd;
-  bool _isBannerAdReady = false;
-
   getDialogeBox(String op) {
     return showDialog(
       context: context,
@@ -32,6 +29,7 @@ class _SelectTabScreenState extends State<SelectTabScreen> {
         return AlertDialog(
           title: const Text('Enter total number of test you want to take'),
           content: TextField(
+            keyboardType: TextInputType.number,
             controller: numTestController,
             onSubmitted: (val) {
               Navigator.of(context).pop();
@@ -42,7 +40,7 @@ class _SelectTabScreenState extends State<SelectTabScreen> {
               });
               numTestController.clear();
             },
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               hintText: 'Enter total number of test',
             ),
           ),
@@ -71,7 +69,12 @@ class _SelectTabScreenState extends State<SelectTabScreen> {
                 });
                 numTestController.clear();
               },
-              child: Text('Next'),
+              child: const Text(
+                'Next',
+                style: TextStyle(
+                  color: AppColors.light,
+                ),
+              ),
             ),
           ],
         );
@@ -82,44 +85,37 @@ class _SelectTabScreenState extends State<SelectTabScreen> {
   @override
   void initState() {
     super.initState();
-    _initBannerAd();
+    // _initBannerAd();
     MusicController.loadAndPlayMusic();
   }
 
-  _initBannerAd() {
-    _bannerAd = BannerAd(
-        size: AdSize.banner,
-        adUnitId: AdId,
-        listener: BannerAdListener(
-          onAdLoaded: (ad) {
-            setState(() {
-              _isBannerAdReady = true;
-            });
-          },
-          onAdFailedToLoad: (ad, error) {
-            ad.dispose();
-            setState(() {
-              _isBannerAdReady = false;
-            });
-          },
-        ),
-        request: AdRequest());
+  // _initBannerAd() {
+  //   _bannerAd = BannerAd(
+  //       size: AdSize.banner,
+  //       adUnitId: AdId,
+  //       listener: BannerAdListener(
+  //         onAdLoaded: (ad) {
+  //           setState(() {
+  //             _isBannerAdReady = true;
+  //           });
+  //         },
+  //         onAdFailedToLoad: (ad, error) {
+  //           ad.dispose();
+  //           setState(() {
+  //             _isBannerAdReady = false;
+  //           });
+  //         },
+  //       ),
+  //       request: const AdRequest());
 
-    _bannerAd.load();
-    log("Banner Ad Loaded: ${_isBannerAdReady}");
-  }
+  //   _bannerAd.load();
+  //   log("Banner Ad Loaded: ${_isBannerAdReady}");
+  // }
 
   bool isGridView = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: _isBannerAdReady
-          ? Container(
-              height: _bannerAd.size.height.toDouble(),
-              width: _bannerAd.size.width.toDouble(),
-              child: AdWidget(ad: _bannerAd),
-            )
-          : const SizedBox(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -135,7 +131,7 @@ class _SelectTabScreenState extends State<SelectTabScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     "Grid View",
                     style: TextStyle(color: AppColors.lightGrey),
                   ),
@@ -175,7 +171,7 @@ class _SelectTabScreenState extends State<SelectTabScreen> {
                             fontSize: getFontSize(35, getDeviceWidth(context)),
                             fontWeight: FontWeight.bold)),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Container(
@@ -190,7 +186,7 @@ class _SelectTabScreenState extends State<SelectTabScreen> {
               ),
             ),
             ListTile(
-              leading: Icon(Icons.scoreboard, color: AppColors.primary),
+              leading: const Icon(Icons.scoreboard, color: AppColors.primary),
               title: Text(
                 'My Score',
                 style: TextStyle(
@@ -204,7 +200,8 @@ class _SelectTabScreenState extends State<SelectTabScreen> {
               },
             ),
             ListTile(
-              leading: Icon(Icons.developer_board, color: AppColors.primary),
+              leading:
+                  const Icon(Icons.developer_board, color: AppColors.primary),
               title: Text(
                 'About Developer',
                 style: TextStyle(
@@ -221,7 +218,7 @@ class _SelectTabScreenState extends State<SelectTabScreen> {
         ),
       ),
       appBar: AppBar(
-        iconTheme: IconThemeData(color: AppColors.primary),
+        iconTheme: const IconThemeData(color: AppColors.primary),
         backgroundColor: AppColors.dark.withOpacity(0.7),
         title: const Text(
           'Kido Learn',
@@ -307,7 +304,8 @@ class _SelectTabScreenState extends State<SelectTabScreen> {
                   child: SizedBox(
                     height: getDeviceHeight(context) * 0.7,
                     child: GridView(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           childAspectRatio: 1.5,
                           crossAxisSpacing: 10,

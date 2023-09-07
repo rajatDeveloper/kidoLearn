@@ -3,7 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:kido_learn/module/home/screens/select_type_screen.dart';
 import 'package:kido_learn/module/slider/controller/slider_controller.dart';
 import 'package:kido_learn/utils/appColor.dart';
-import 'package:kido_learn/utils/assets.dart';
+
 import 'package:kido_learn/utils/helping_functions.dart';
 import 'package:kido_learn/utils/text.dart';
 
@@ -58,13 +58,16 @@ class SliderScreen extends StatelessWidget {
                   Navigator.pushReplacementNamed(
                       context, SelectTabScreen.routeName);
                 },
-                child: const Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      "Play Now",
-                    ),
-                    Icon(
+                    Text("Play Now",
+                        style: TextStyle(
+                          color: AppColors.light,
+                          fontSize: getFontSize(18, getDeviceWidth(context)),
+                          fontWeight: FontWeight.bold,
+                        )),
+                    const Icon(
                       Icons.arrow_forward_ios,
                       color: AppColors.light,
                       size: 15,

@@ -1,7 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 
-import 'package:kido_learn/module/slider/screen/slider_screen.dart';
 import 'package:kido_learn/module/splash/controller/splash_controller.dart';
 import 'package:kido_learn/utils/appColor.dart';
 import 'package:kido_learn/utils/assets.dart';
