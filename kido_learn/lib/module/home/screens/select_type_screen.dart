@@ -165,7 +165,7 @@ class _SelectTabScreenState extends State<SelectTabScreen> {
                 children: [
                   Container(
                     alignment: Alignment.center,
-                    child: Text("Kido Learn",
+                    child: Text("Learn Now",
                         style: TextStyle(
                             color: AppColors.lightGrey,
                             fontSize: getFontSize(35, getDeviceWidth(context)),
@@ -221,7 +221,7 @@ class _SelectTabScreenState extends State<SelectTabScreen> {
         iconTheme: const IconThemeData(color: AppColors.primary),
         backgroundColor: AppColors.dark.withOpacity(0.7),
         title: const Text(
-          'Kido Learn',
+          'Learn Now',
           style: TextStyle(color: AppColors.primary),
         ),
         actions: [

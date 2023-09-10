@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "Kido Learn" "\0"
+            VALUE "FileDescription", "Learn Now" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "Kido Learn" "\0"
+            VALUE "InternalName", "Learn Now" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2023 com.example. All rights reserved." "\0"
             VALUE "OriginalFilename", "kido_learn.exe" "\0"
-            VALUE "ProductName", "Kido Learn" "\0"
+            VALUE "ProductName", "Learn Now" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

@@ -38,7 +38,7 @@ class _TestScreenState extends State<TestScreen> {
         ),
         body: Container(
             height: getDeviceHeight(context) * 0.8,
-            child: widget.num != null
+            child: int.parse(widget.num) != 0
                 ? ListView.builder(
                     itemCount: int.parse(widget.num),
                     itemBuilder: (BuildContext context, int index) {
